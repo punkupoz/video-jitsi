@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom'
 // }
 
 const ConferenceScreen = (/* {session}: {session: Session} */) => {
-  const { session } = React.useContext(SessionContext)
+  const { session, setSession } = React.useContext(SessionContext)
   const history = useHistory()
 
   const parentNode = 'jitsi-container'
@@ -35,15 +35,28 @@ const ConferenceScreen = (/* {session}: {session: Session} */) => {
     },
     width: '100%',
     height: '100%'
-  }, process.env.JITSI_SUB)
+  }, process.env.REACT_APP_JITSI_SUB)
 
   useEffect(() => {
+    let timeout
     if (jitsi) {
-      jitsi.addListener('videoConferenceJoined', () => {
+      jitsi.addListener('videoConferenceLeft', () => {
+        timeout = setTimeout(() => {
+          setSession({
+            jwt: '',
+            roomName: '',
+            displayName: ''
+          })
+          localStorage.clear()
+          history.push('/')
+        }, 1000)
       })
     }
-    return () => jitsi && jitsi.dispose()
-  }, [jitsi, session.displayName])
+    return () => {
+      clearTimeout(timeout)
+      jitsi && jitsi.dispose()
+    }
+  }, [jitsi, session.displayName, setSession, history])
 
   return <div id={parentNode} style={{ height: '100vh', width: '100%'}}/>
 }

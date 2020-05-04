@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core'
 import { theme } from './theme'
 import { CssBaseline } from '@material-ui/core';
 import { SessionContext, Session } from './context/session'
+require('dotenv').config()
 
 function App() {
   const [session, setSession] = React.useState<Session>({

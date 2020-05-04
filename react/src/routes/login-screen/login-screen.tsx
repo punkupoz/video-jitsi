@@ -16,6 +16,7 @@ interface Values {
 const LoginScreen = () => {
   const { setSession } = React.useContext(SessionContext)
   const history = useHistory()
+  console.log(process.env)
   return (
     <Formik
       initialValues={{
@@ -28,10 +29,12 @@ const LoginScreen = () => {
         const errors: Partial<Values> = {};
         if (!values.userName) errors.userName = "required"
         if (!values.password) errors.password = "required"
+        if (!values.displayName) errors.displayName = "required"
+        if (!values.roomName) errors.roomName = "required"
         return errors;
       }}
       onSubmit={async (values: Values) => {
-        const result = await fetch(`${process.env.API_ENDPOINT}/api/users/login`, {
+        const result = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/users/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -92,6 +95,7 @@ const LoginScreen = () => {
                     name="displayName"
                     label="Display Name"
                     fullWidth
+                    required
                     variant='outlined'
                   />
                 </Grid>
@@ -106,18 +110,10 @@ const LoginScreen = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    component={TextField}
-                    name="subject"
-                    label="Subject"
-                    fullWidth
-                    variant='outlined'
-                  />
-                </Grid>
-                <Grid item xs={12}>
                   {isSubmitting ? <LinearProgress /> : <Button
                     variant="contained"
                     color="primary"
+                    type="submit"
                     disabled={isSubmitting}
                     onClick={submitForm}
                   >
