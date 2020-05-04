@@ -2,8 +2,8 @@ import { Request, Response, Router } from 'express';
 import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
 import bcrypt from 'bcrypt'
 
-import UserDao from '@daos/User/UserDao';
-import { paramMissingError } from '@shared/constants';
+import UserDao from '../daos/User/UserDao';
+import { paramMissingError } from '../shared/constants';
 import jwt from 'jsonwebtoken'
 
 // Init shared
