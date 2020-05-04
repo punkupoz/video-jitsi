@@ -49,7 +49,11 @@ res: {
 ```
 
 #### Front end
-
+Add an `.env` file
+```
+REACT_APP_JITSI_SUB=meet.jit.si <- use your jitsi server.
+REACT_APP_API_ENDPOINT=http://localhost:3000 <- back end endpoint
+```
 
 ### Jitsi server: jitsi.shipcapt.com
 Linked problems: https://github.com/jitsi/lib-jitsi-meet/issues/1082
