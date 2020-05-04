@@ -1,4 +1,4 @@
-### Demo app
+### Demo JWT Jitsi and React....
 Simple demo React wrapper for Jitsi servers with JWT authentication.
 Don't take anything too serious here :)
 #### Back end
